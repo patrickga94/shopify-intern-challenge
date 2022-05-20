@@ -84,6 +84,22 @@ const InputForm = (props) => {
                     <Button className="mt-2" type="submit">Submit</Button>
                 </Form>
             </Container>
+            <Container>
+                <Row className="mt-3">
+                    <Col className="col-2">
+                        <h5>Need help getting started?</h5>
+                    </Col>
+                    <Col className="col-10">
+                        <select className="form-select" onChange={handleChange}>
+                            <option selected>Choose from one of these sample prompts</option>
+                            <option value="Write a poem about">Write a poem about</option>
+                            <option value="Tell a joke about">Tell a joke about</option>
+                            <option value="What is the capitol of">What is the capitol of</option>
+                            <option value="Give me a synopsis for">Give me a synopsis for</option>
+                        </select>
+                    </Col>
+                </Row>
+            </Container>
             <h2 className="mt-5">Responses:</h2>
             <div className="d-flex flex-column justify-content-center align-items-center">
                     {responseBlocks}
