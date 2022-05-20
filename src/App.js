@@ -1,10 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
+import InputForm from './components/InputForm';
+require('dotenv').config()
+const apiKey = process.env.REACT_APP_AI_APIKEY
 
-function App() {
+const App = () => {
+
   return (
     <div className="App">
       <h1>Hello world!</h1>
+      <InputForm/>
     </div>
   );
 }
