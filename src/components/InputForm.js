@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {makeRequest} from '../api/AiRequest'
-import {Form, Button, Container} from "react-bootstrap"
+import {Form, Button, Container, Row, Col} from "react-bootstrap"
 require('dotenv').config()
 const apiKey = process.env.REACT_APP_AI_APIKEY
 
@@ -43,11 +43,25 @@ const InputForm = (props) => {
                 console.log("index", index)
                 return(
                     <div 
-                        className="d-flex flex-column justify-content-center align-items-center m-2"
+                        className="m-2"
                         key={index}
-                        style={{width: "50%", backgroundColor: "aliceblue", border: "2px solid black"}}>
-                        <p><strong>Prompt:</strong> {element.input}</p>
-                        <p><strong>Response:</strong> {element.output}</p>
+                        style={{width: "50%", backgroundColor: "aliceblue", border: "2px solid black", padding: "10px"}}>
+                        <Row className="m-2">
+                            <Col className="col-2">
+                                <h5>Prompt:</h5> 
+                            </Col>
+                            <Col className="col-10">
+                                <p>{element.input}</p>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col className="col-2">
+                                <h5>Response:</h5> 
+                            </Col>
+                            <Col className="col-10">
+                                <p>{element.output}</p>
+                            </Col>
+                        </Row>
                     </div>
                 )
         }))
@@ -68,7 +82,7 @@ const InputForm = (props) => {
                     <Button className="mt-2" type="submit">Submit</Button>
                 </Form>
             </Container>
-            <h2>Responses:</h2>
+            <h2 className="mt-5">Responses:</h2>
             <div className="d-flex flex-column justify-content-center align-items-center">
                     {responseBlocks}
             </div>
