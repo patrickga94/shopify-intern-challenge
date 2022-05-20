@@ -37,6 +37,7 @@ const InputForm = (props) => {
 
     
     useEffect(()=>{
+        setInput("")
         if(responses.length > 0){
             setResponseBlocks(responses.map((element, index) => {
                 console.log("element", element)
@@ -76,7 +77,8 @@ const InputForm = (props) => {
                 <Form onSubmit={handleSubmit}>
                     <Form.Control
                         name="request" 
-                        type="text" 
+                        type="text"
+                        value={input}
                         placeholder="Enter a prompt for the AI!"
                         onChange={handleChange}/>
                     <Button className="mt-2" type="submit">Submit</Button>

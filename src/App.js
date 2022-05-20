@@ -7,7 +7,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1>Fun With AI</h1>
+      <h1 className='mt-5'>Fun With AI</h1>
       <InputForm/>
     </div>
   );
