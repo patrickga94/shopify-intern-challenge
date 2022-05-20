@@ -8,7 +8,7 @@ const apiKey = process.env.REACT_APP_AI_APIKEY
 const InputForm = (props) => {
     const [input, setInput] = useState(null)
     const [responses, setResponses] = useState([])
-    const [responseBlocks, setResponseBlocks] = useState(<p>Have some fun with AI!</p>)
+    const [responseBlocks, setResponseBlocks] = useState(<p>Make a request and see what the AI comes up with!</p>)
 
 
     const handleChange= (e) => {
@@ -37,7 +37,10 @@ const InputForm = (props) => {
                 console.log("element", element)
                 console.log("index", index)
                 return(
-                    <div  key={index}>
+                    <div 
+                        className="d-flex flex-column justify-content-center align-items-center m-2"
+                        key={index}
+                        style={{width: "50%", backgroundColor: "aliceblue"}}>
                         <p><strong>Prompt:</strong> {element.input}</p>
                         <p><strong>Response:</strong> {element.output}</p>
                     </div>
@@ -65,9 +68,9 @@ const InputForm = (props) => {
                 </Form>
             </Container>
             <h2>Responses:</h2>
-            <Container className="d-flex flex-column justify-content-center">
+            <div className="d-flex flex-column justify-content-center align-items-center">
                     {responseBlocks}
-            </Container>
+            </div>
         </>
     )
 }
