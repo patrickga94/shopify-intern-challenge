@@ -8,6 +8,7 @@ const apiKey = process.env.REACT_APP_AI_APIKEY
 const InputForm = (props) => {
     const [input, setInput] = useState(null)
     const [responses, setResponses] = useState([])
+    const [responseBlocks, setResponseBlocks] = useState(<p>hello</p>)
 
 
     const handleChange= (e) => {
@@ -21,9 +22,27 @@ const InputForm = (props) => {
             .then(res => {
                 console.log("full res", res.data)
                 console.log("response", res.data.choices[0].text)
+                setResponses(prevResponse => {
+                    return [...prevResponse, res.data.choices[0].text]
+                })
             })
             .catch(console.error)
     }
+
+    
+    useEffect(()=>{
+        if(responses.length > 0){
+            setResponseBlocks(responses.map((element, index) => {
+                console.log("element", element)
+                console.log("index", index)
+                return(
+                    <p key={index}>{element}</p>
+                )
+        }))
+        }
+        console.log("response blocks", responseBlocks)
+    }, [responses])
+
 
     // useEffect(() =>{
     //     makeRequest(input, apiKey)
@@ -41,6 +60,10 @@ const InputForm = (props) => {
                     <Form.Control name="request" type="text" onChange={handleChange}/>
                     <Button className="mt-2" type="submit">Submit</Button>
                 </Form>
+                {/* {responses.length > 0 && */}
+                    {responseBlocks}
+                {/* }    */}
+
             </Container>
         </>
     )
