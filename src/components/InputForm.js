@@ -8,7 +8,7 @@ const apiKey = process.env.REACT_APP_AI_APIKEY
 const InputForm = (props) => {
     const [input, setInput] = useState(null)
     const [responses, setResponses] = useState([])
-    const [responseBlocks, setResponseBlocks] = useState(<p>hello</p>)
+    const [responseBlocks, setResponseBlocks] = useState(<p>Have some fun with AI!</p>)
 
 
     const handleChange= (e) => {
@@ -22,8 +22,9 @@ const InputForm = (props) => {
             .then(res => {
                 console.log("full res", res.data)
                 console.log("response", res.data.choices[0].text)
+                let output = res.data.choices[0].text
                 setResponses(prevResponse => {
-                    return [res.data.choices[0].text, ...prevResponse]
+                    return [{input, output}, ...prevResponse]
                 })
             })
             .catch(console.error)
@@ -36,7 +37,10 @@ const InputForm = (props) => {
                 console.log("element", element)
                 console.log("index", index)
                 return(
-                    <p key={index}>{element}</p>
+                    <div  key={index}>
+                        <p><strong>Prompt:</strong> {element.input}</p>
+                        <p><strong>Response:</strong> {element.output}</p>
+                    </div>
                 )
         }))
         }
@@ -54,16 +58,15 @@ const InputForm = (props) => {
     // }, [input])
     return (
         <>
-            <h2>Hello there</h2>
             <Container>
                 <Form onSubmit={handleSubmit}>
                     <Form.Control name="request" type="text" onChange={handleChange}/>
                     <Button className="mt-2" type="submit">Submit</Button>
                 </Form>
-                {/* {responses.length > 0 && */}
+            </Container>
+            <h2>Responses:</h2>
+            <Container className="d-flex flex-column justify-content-center">
                     {responseBlocks}
-                {/* }    */}
-
             </Container>
         </>
     )
