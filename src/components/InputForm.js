@@ -1,14 +1,19 @@
 import React, {useState, useEffect} from "react";
-import axios from 'axios';
 import {makeRequest} from '../api/AiRequest'
-import {Form, Button, Container} from "react-bootstrap"
+import {Form, Button, Container, Row, Col} from "react-bootstrap"
 require('dotenv').config()
 const apiKey = process.env.REACT_APP_AI_APIKEY
 
 const InputForm = (props) => {
     const [input, setInput] = useState(null)
     const [responses, setResponses] = useState([])
-    const [responseBlocks, setResponseBlocks] = useState(<p>Make a request and see what the AI comes up with!</p>)
+    const [responseBlocks, setResponseBlocks] = useState(
+        <div 
+            className="d-flex flex-column justify-content-center align-items-center m-2"
+            style={{width: "50%", backgroundColor: "aliceblue", border: "2px solid black"}}>
+                <p><strong>Submit a prompt and see what the AI comes up with!</strong></p>
+        </div>
+        )
 
 
     const handleChange= (e) => {
@@ -32,17 +37,32 @@ const InputForm = (props) => {
 
     
     useEffect(()=>{
+        setInput("")
         if(responses.length > 0){
             setResponseBlocks(responses.map((element, index) => {
                 console.log("element", element)
                 console.log("index", index)
                 return(
                     <div 
-                        className="d-flex flex-column justify-content-center align-items-center m-2"
+                        className="m-2"
                         key={index}
-                        style={{width: "50%", backgroundColor: "aliceblue"}}>
-                        <p><strong>Prompt:</strong> {element.input}</p>
-                        <p><strong>Response:</strong> {element.output}</p>
+                        style={{width: "50%", backgroundColor: "aliceblue", border: "2px solid black", padding: "10px"}}>
+                        <Row className="m-2">
+                            <Col className="col-2">
+                                <h5>Prompt:</h5> 
+                            </Col>
+                            <Col className="col-10">
+                                <p>{element.input}</p>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col className="col-2">
+                                <h5>Response:</h5> 
+                            </Col>
+                            <Col className="col-10">
+                                <p>{element.output}</p>
+                            </Col>
+                        </Row>
                     </div>
                 )
         }))
@@ -51,23 +71,36 @@ const InputForm = (props) => {
     }, [responses])
 
 
-    // useEffect(() =>{
-    //     makeRequest(input, apiKey)
-    //         .then(res => {
-    //             console.log("full res", res.data)
-    //             console.log("response", res.data.choices[0].text)
-    //         })
-    //         .catch(console.error)
-    // }, [input])
     return (
         <>
             <Container>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Control name="request" type="text" onChange={handleChange}/>
+                    <Form.Control
+                        name="request" 
+                        type="text"
+                        value={input}
+                        placeholder="Enter a prompt for the AI!"
+                        onChange={handleChange}/>
                     <Button className="mt-2" type="submit">Submit</Button>
                 </Form>
             </Container>
-            <h2>Responses:</h2>
+            <Container>
+                <Row className="mt-3">
+                    <Col className="col-2">
+                        <h5>Need help getting started?</h5>
+                    </Col>
+                    <Col className="col-10">
+                        <select className="form-select" onChange={handleChange}>
+                            <option selected>Choose from one of these sample prompts</option>
+                            <option value="Write a poem about">Write a poem about</option>
+                            <option value="Tell a joke about">Tell a joke about</option>
+                            <option value="What is the capitol of">What is the capitol of</option>
+                            <option value="Give me a synopsis for">Give me a synopsis for</option>
+                        </select>
+                    </Col>
+                </Row>
+            </Container>
+            <h2 className="mt-5">Responses:</h2>
             <div className="d-flex flex-column justify-content-center align-items-center">
                     {responseBlocks}
             </div>
