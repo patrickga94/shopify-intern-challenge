@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import axios from 'axios';
 import {makeRequest} from '../api/AiRequest'
 import {Form, Button, Container} from "react-bootstrap"
 require('dotenv').config()
@@ -8,7 +7,13 @@ const apiKey = process.env.REACT_APP_AI_APIKEY
 const InputForm = (props) => {
     const [input, setInput] = useState(null)
     const [responses, setResponses] = useState([])
-    const [responseBlocks, setResponseBlocks] = useState(<p>Make a request and see what the AI comes up with!</p>)
+    const [responseBlocks, setResponseBlocks] = useState(
+        <div 
+            className="d-flex flex-column justify-content-center align-items-center m-2"
+            style={{width: "50%", backgroundColor: "aliceblue", border: "2px solid black"}}>
+                <p><strong>Submit a prompt and see what the AI comes up with!</strong></p>
+        </div>
+        )
 
 
     const handleChange= (e) => {
@@ -40,7 +45,7 @@ const InputForm = (props) => {
                     <div 
                         className="d-flex flex-column justify-content-center align-items-center m-2"
                         key={index}
-                        style={{width: "50%", backgroundColor: "aliceblue"}}>
+                        style={{width: "50%", backgroundColor: "aliceblue", border: "2px solid black"}}>
                         <p><strong>Prompt:</strong> {element.input}</p>
                         <p><strong>Response:</strong> {element.output}</p>
                     </div>
@@ -51,19 +56,15 @@ const InputForm = (props) => {
     }, [responses])
 
 
-    // useEffect(() =>{
-    //     makeRequest(input, apiKey)
-    //         .then(res => {
-    //             console.log("full res", res.data)
-    //             console.log("response", res.data.choices[0].text)
-    //         })
-    //         .catch(console.error)
-    // }, [input])
     return (
         <>
             <Container>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Control name="request" type="text" onChange={handleChange}/>
+                    <Form.Control
+                        name="request" 
+                        type="text" 
+                        placeholder="Enter a prompt for the AI!"
+                        onChange={handleChange}/>
                     <Button className="mt-2" type="submit">Submit</Button>
                 </Form>
             </Container>
