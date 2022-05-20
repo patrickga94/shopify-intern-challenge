@@ -23,7 +23,7 @@ const InputForm = (props) => {
                 console.log("full res", res.data)
                 console.log("response", res.data.choices[0].text)
                 setResponses(prevResponse => {
-                    return [...prevResponse, res.data.choices[0].text]
+                    return [res.data.choices[0].text, ...prevResponse]
                 })
             })
             .catch(console.error)
