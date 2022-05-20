@@ -6,9 +6,9 @@ const apiKey = process.env.REACT_APP_AI_APIKEY
 
 const InputForm = (props) => {
     useEffect(() =>{
-        makeRequest(apiKey)
+        makeRequest("Write a poem about a dog wearing skis", apiKey)
             .then(res => {
-                console.log(res)
+                console.log("response", res.data.choices[0].text)
             })
             .catch(console.error)
     }, [])

@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const makeRequest = (apiKey) =>{
+export const makeRequest = (input, apiKey) =>{
     const data = {
-        prompt: "Write a poem about a dog wearing skis",
+        prompt: input,
         temperature: 0.5,
         max_tokens: 64,
         top_p: 1.0,
